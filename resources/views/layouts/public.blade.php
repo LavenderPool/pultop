@@ -49,18 +49,20 @@
     <link rel="stylesheet" href="{{ asset('css/inline/the7-custom-inline-css.css') }}">
     <link rel="stylesheet" href="{{ asset('css/inline/wp-custom-css.css') }}">
 
+    {{-- Sidebar widgets (loaded in head; component push runs too late) --}}
+    <link rel="stylesheet" href="{{ asset('css/sidebar-news.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/gold-widget.css') }}">
+
     @stack('styles')
 </head>
 <body
     id="the7-body"
-    class="home page page-template-default dt-responsive-on right-mobile-menu-close-icon ouside-menu-close-icon mobile-hamburger-close-bg-enable mobile-hamburger-close-bg-hover-enable fade-medium-mobile-menu-close-icon fade-medium-menu-close-icon accent-gradient srcset-enabled btn-flat custom-btn-color custom-btn-hover-color phantom-sticky phantom-shadow-decoration phantom-main-logo-on sticky-mobile-header top-header first-switch-logo-left first-switch-menu-right second-switch-logo-left second-switch-menu-right right-mobile-menu layzr-loading-on no-avatars popup-message-style the7-ver-11.14.0.1 dt-fa-compatibility wpb-js-composer js-comp-ver-7.5 vc_responsive"
+    class="@yield('body_class') page page-template-default dt-responsive-on right-mobile-menu-close-icon ouside-menu-close-icon mobile-hamburger-close-bg-enable mobile-hamburger-close-bg-hover-enable fade-medium-mobile-menu-close-icon fade-medium-menu-close-icon accent-gradient srcset-enabled btn-flat custom-btn-color custom-btn-hover-color phantom-sticky phantom-shadow-decoration phantom-main-logo-on sticky-mobile-header top-header first-switch-logo-left first-switch-menu-right second-switch-logo-left second-switch-menu-right right-mobile-menu layzr-loading-on no-avatars popup-message-style the7-ver-11.14.0.1 dt-fa-compatibility wpb-js-composer js-comp-ver-7.5 vc_responsive"
 >
     <div id="page">
         <x-public.header />
 
-        <main id="main" class="wf-container-main">
-            @yield('content')
-        </main>
+        @yield('content')
 
         <x-public.footer />
     </div>

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\ExchangeRateApiController;
 use App\Http\Controllers\Api\GoldChartApiController;
+use App\Http\Controllers\Front\BankController;
+use App\Http\Controllers\Front\BankRatingController;
 use App\Http\Controllers\Front\CalculatorController;
 use App\Http\Controllers\Front\ExchangeRateController;
 use App\Http\Controllers\Front\GoldController;
@@ -9,6 +11,10 @@ use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/banks', [BankController::class, 'index'])->name('banks.index');
+Route::get('/banks-of-uzbekistan', [BankRatingController::class, 'show'])->name('banks.rating');
+Route::get('/banks/{bank}', [BankController::class, 'show'])->name('banks.show');
 
 Route::get('/kurs-obmena-valyut', [ExchangeRateController::class, 'index'])
     ->name('exchange-rates.index');

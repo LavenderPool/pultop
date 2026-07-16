@@ -19,3 +19,21 @@ Template: dt-the7
   opacity: 1;
   visibility: visible;
 }
+
+/* Fixed masthead clearance: header 60px; + top-bar 36px when present */
+.page-title {
+  padding-top: 60px;
+}
+
+#page:has(.top-bar) .page-title {
+  padding-top: 96px;
+}
+
+/* Страницы без page-title — по-прежнему сдвигаем #main */
+#page:not(:has(.page-title)) #main {
+  padding-top: 60px;
+}
+
+#page:has(.top-bar):not(:has(.page-title)) #main {
+  padding-top: 96px;
+}

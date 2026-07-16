@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\GoldSettingsController;
 use App\Http\Controllers\Admin\RateSettingsController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     Route::resource('banks', BankController::class)->except(['show']);
+
+    Route::get('settings/general', [GeneralSettingsController::class, 'edit'])->name('settings.general.edit');
+    Route::put('settings/general', [GeneralSettingsController::class, 'update'])->name('settings.general.update');
 
     Route::get('settings/rates', [RateSettingsController::class, 'edit'])->name('settings.rates.edit');
     Route::put('settings/rates', [RateSettingsController::class, 'update'])->name('settings.rates.update');

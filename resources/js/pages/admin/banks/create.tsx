@@ -60,10 +60,46 @@ export default function BanksCreate({ parserCodes }: Props) {
                                         hint="Если пусто — сгенерируется из названия"
                                     />
                                     <Field
+                                        id="address"
+                                        label="Адрес"
+                                        error={errors.address}
+                                    />
+                                    <div className="flex flex-col gap-2">
+                                        <Label htmlFor="description">
+                                            Описание
+                                        </Label>
+                                        <textarea
+                                            id="description"
+                                            name="description"
+                                            rows={3}
+                                            className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                        />
+                                        {errors.description && (
+                                            <p className="text-sm text-destructive">
+                                                {errors.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <Field
                                         id="website"
                                         label="Сайт"
                                         type="url"
                                         error={errors.website}
+                                    />
+                                    <Field
+                                        id="license"
+                                        label="Лицензия"
+                                        error={errors.license}
+                                    />
+                                    <Field
+                                        id="mfo"
+                                        label="МФО"
+                                        error={errors.mfo}
+                                    />
+                                    <Field
+                                        id="inn"
+                                        label="ИНН"
+                                        error={errors.inn}
                                     />
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor="parser_code">

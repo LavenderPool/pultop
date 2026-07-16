@@ -2,13 +2,11 @@
 
 @section('title', 'Кредиты, вклады, курсы валют в Узбекистане | PulTop.Uz')
 
+@section('body_class', 'home')
+
 @section('content')
+    <div id="main" class="sidebar-none sidebar-divider-vertical">
     <div class="wf-wrap">
-        <div class="wf-container-main">
-
-
-
-
             <div id="content" class="content" role="main">
 
                 <div class="wpb-content-wrapper">
@@ -247,8 +245,7 @@
                     </div>
                     <div class="vc_row wpb_row vc_row-fluid wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top vc_custom_1767904905083 ult-vc-hide-row vc_row-has-fill wpb_start_animation animated"
                         data-rtl="false" style="position: relative;" data-row-effect-mobile-disable="true">
-                        <div class="upb_row_bg" data-bg-override="ex-full"
-                            style="min-width: 1023px; left: -35px; width: 1023px;"></div>
+                        <div class="upb_row_bg" data-bg-override="ex-full"></div>
                         <div class="wpb_column vc_column_container vc_col-sm-12">
                             <div class="vc_column-inner vc_custom_1554841835687">
                                 <div class="wpb_wrapper">
@@ -892,9 +889,8 @@
                             </div>
                         </div>
                     </div>
-                    <div data-vc-full-width="true" data-vc-full-width-init="true"
-                        class="vc_row wpb_row vc_row-fluid wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top vc_custom_1767904954268 vc_row-has-fill wpb_start_animation animated"
-                        style="left: -35px; position: relative; box-sizing: border-box; width: 1023px; padding-left: 35px; padding-right: 35px;">
+                    <div data-vc-full-width="true" data-vc-full-width-init="false"
+                        class="vc_row wpb_row vc_row-fluid wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top vc_custom_1767904954268 vc_row-has-fill wpb_start_animation animated">
                         <div class="wpb_column vc_column_container vc_col-sm-12">
                             <div class="vc_column-inner vc_custom_1548843355428">
                                 <div class="wpb_wrapper">
@@ -999,10 +995,6 @@
                     <div class="vc_row-full-width vc_clearfix"></div>
                 </div>
             </div><!-- #content -->
-
-
-
-
-        </div><!-- .wf-container -->
+    </div>
     </div>
 @endsection

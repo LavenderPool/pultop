@@ -396,7 +396,7 @@ class PultopWpGoldImporter
             $bankName = $this->normalizeCellHtml($cells->item(0));
             $address = $this->normalizeCellHtml($cells->item(1));
             $phone = $cells->length >= 3
-                ? $this->normalizeCellHtml($cells->item(2))
+                ? $this->normalizePhoneCell($cells->item(2))
                 : '';
 
             if ($bankName === '' || $address === '') {
@@ -475,6 +475,34 @@ class PultopWpGoldImporter
         $text = preg_replace('/\s+/u', ' ', $text) ?? $text;
 
         return trim($text);
+    }
+
+    private function normalizePhoneCell(?\DOMNode $node): string
+    {
+        if ($node === null) {
+            return '';
+        }
+
+        $html = '';
+        foreach ($node->childNodes as $child) {
+            $html .= $node->ownerDocument?->saveHTML($child) ?? '';
+        }
+
+        $html = preg_replace('/<br\s*\/?>/iu', "\n", $html) ?? $html;
+        $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $lines = preg_split('/\R+/u', $text) ?: [];
+        $normalized = [];
+
+        foreach ($lines as $line) {
+            $line = preg_replace('/\s+/u', ' ', $line) ?? $line;
+            $line = trim($line);
+
+            if ($line !== '') {
+                $normalized[] = $line;
+            }
+        }
+
+        return implode("\n", $normalized);
     }
 
     private function decimal(mixed $value): ?string

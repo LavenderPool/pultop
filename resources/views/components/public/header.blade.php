@@ -1,36 +1,30 @@
-<div class="masthead inline-header center widgets full-height shadow-decoration shadow-mobile-header-decoration small-mobile-menu-icon dt-parent-menu-clickable show-sub-menu-on-hover fixed-masthead sticky-on"
-    role="banner" style="top: -36px;">
+<div class="masthead inline-header center widgets full-height shadow-decoration shadow-mobile-header-decoration small-mobile-menu-icon dt-parent-menu-clickable show-sub-menu-on-hover fixed-masthead"
+    role="banner">
 
-    <div class="top-bar full-width-line top-bar-line-hide">
-        <div class="top-bar-bg"></div>
-        <div class="left-widgets mini-widgets"><span
-                class="mini-contacts clock hide-on-desktop hide-on-first-switch hide-on-second-switch display-none"><i
-                    class="fa-fw icomoon-the7-font-the7-clock-01"></i>Monday – Friday 10 AM – 8 PM</span></div>
-        <div class="right-widgets mini-widgets">
-            <div
-                class="soc-ico show-on-desktop in-top-bar-right in-menu-second-switch custom-bg disabled-border border-off hover-accent-bg hover-disabled-border hover-border-off first last">
-                <a title="Facebook page opens in new window" href="/" target="_blank" class="facebook"><span
-                        class="soc-font-icon"></span><span class="screen-reader-text">Facebook page opens in new
-                        window</span></a><a title="X page opens in new window" href="/" target="_blank"
-                    class="twitter"><span class="soc-font-icon"></span><span class="screen-reader-text">X page opens in
-                        new window</span></a><a title="Instagram page opens in new window" href="/" target="_blank"
-                    class="instagram"><span class="soc-font-icon"></span><span class="screen-reader-text">Instagram page
-                        opens in new window</span></a><a title="YouTube page opens in new window" href="/"
-                    target="_blank" class="you-tube"><span class="soc-font-icon"></span><span
-                        class="screen-reader-text">YouTube page opens in new window</span></a></div>
-            <div
-                class="soc-ico in-top-bar-right in-menu-second-switch custom-bg disabled-border border-off hover-accent-bg hover-disabled-border hover-border-off hide-on-desktop show-on-first-switch display-none">
-                <a title="Facebook page opens in new window" href="/" target="_blank" class="facebook"><span
-                        class="soc-font-icon"></span><span class="screen-reader-text">Facebook page opens in new
-                        window</span></a><a title="X page opens in new window" href="/" target="_blank"
-                    class="twitter"><span class="soc-font-icon"></span><span class="screen-reader-text">X page opens in
-                        new window</span></a><a title="Instagram page opens in new window" href="/" target="_blank"
-                    class="instagram"><span class="soc-font-icon"></span><span class="screen-reader-text">Instagram page
-                        opens in new window</span></a><a title="YouTube page opens in new window" href="/"
-                    target="_blank" class="you-tube"><span class="soc-font-icon"></span><span
-                        class="screen-reader-text">YouTube page opens in new window</span></a></div>
+    @if (count($socialLinks) > 0)
+        <div class="top-bar full-width-line top-bar-line-hide">
+            <div class="top-bar-bg"></div>
+            <div class="left-widgets mini-widgets"></div>
+            <div class="right-widgets mini-widgets">
+                <div
+                    class="soc-ico show-on-desktop in-top-bar-right in-menu-second-switch custom-bg disabled-border border-off hover-accent-bg hover-disabled-border hover-border-off first last">
+                    @foreach ($socialLinks as $link)
+                        <a title="{{ $link['title'] }}" href="{{ $link['url'] }}" target="_blank"
+                            rel="noopener noreferrer" class="{{ $link['class'] }}"><span
+                                class="soc-font-icon"></span><span class="screen-reader-text">{{ $link['title'] }}</span></a>
+                    @endforeach
+                </div>
+                <div
+                    class="soc-ico in-top-bar-right in-menu-second-switch custom-bg disabled-border border-off hover-accent-bg hover-disabled-border hover-border-off hide-on-desktop show-on-first-switch display-none">
+                    @foreach ($socialLinks as $link)
+                        <a title="{{ $link['title'] }}" href="{{ $link['url'] }}" target="_blank"
+                            rel="noopener noreferrer" class="{{ $link['class'] }}"><span
+                                class="soc-font-icon"></span><span class="screen-reader-text">{{ $link['title'] }}</span></a>
+                    @endforeach
+                </div>
+            </div>
         </div>
-    </div>
+    @endif
 
     <header class="header-bar" style="height: 60px; transition: 0.3s;">
 
@@ -46,11 +40,11 @@
         <ul id="primary-menu" class="main-nav underline-decoration l-to-r-line outside-item-remove-margin">
             <li
                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3452 first has-children depth-0">
-                <a href="/banks_of_uzbekistan/" data-level="1"><i class="fa fa-university"></i><span
+                <a href="{{ route('banks.index') }}" data-level="1"><i class="fa fa-university"></i><span
                         class="menu-item-text"><span class="menu-text">Банки</span><i class="underline"></i></span></a>
                 <ul class="sub-nav gradient-hover hover-style-bg level-arrows-on">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2906 first depth-1"><a
-                            href="/banks-of-uzbekistan/" data-level="2"><span
+                            href="{{ route('banks.rating') }}" data-level="2"><span
                                 class="menu-item-text"><span class="menu-text">Рейтинг Банков</span></span></a></li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2585 depth-1"><a
                             href="/ofitsialnyj-kurs-valyut/" data-level="2"><span

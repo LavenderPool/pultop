@@ -73,6 +73,11 @@ class BankService
         $data['parser_code'] = filled($data['parser_code'] ?? null) ? (string) $data['parser_code'] : null;
         $data['rates_url'] = filled($data['rates_url'] ?? null) ? (string) $data['rates_url'] : null;
         $data['website'] = filled($data['website'] ?? null) ? (string) $data['website'] : null;
+        $data['address'] = filled($data['address'] ?? null) ? (string) $data['address'] : null;
+        $data['description'] = filled($data['description'] ?? null) ? (string) $data['description'] : null;
+        $data['license'] = filled($data['license'] ?? null) ? (string) $data['license'] : null;
+        $data['mfo'] = filled($data['mfo'] ?? null) ? (string) $data['mfo'] : null;
+        $data['inn'] = filled($data['inn'] ?? null) ? (string) $data['inn'] : null;
 
         return $data;
     }

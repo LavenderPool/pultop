@@ -14,6 +14,11 @@ class SettingSeeder extends Seeder
             'rates_parse_cron' => '0 * * * *',
             'rates_parse_concurrency' => '5',
             'rates_parse_delay_ms' => '300',
+            'social_facebook_url' => '',
+            'social_x_url' => '',
+            'social_instagram_url' => '',
+            'social_youtube_url' => '',
+            'social_telegram_url' => '',
         ];
 
         foreach ($defaults as $key => $value) {

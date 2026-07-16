@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Front;
 use App\Enums\RateOperation;
 use App\Enums\RatePlace;
 use App\Http\Controllers\Controller;
-use App\Services\Gold\GoldQueryService;
 use App\Services\Rates\ExchangeRateQueryService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,7 +13,6 @@ class ExchangeRateController extends Controller
 {
     public function __construct(
         private readonly ExchangeRateQueryService $rates,
-        private readonly GoldQueryService $gold,
     ) {}
 
     public function index(): View
@@ -83,8 +81,6 @@ class ExchangeRateController extends Controller
             ]),
             'apiUrl' => route('api.rates'),
             'title' => $model->name_ru,
-            'goldPrices' => $this->gold->currentPrices(),
-            'goldPricedOn' => $this->gold->latestPricedOn(),
         ]);
     }
 }

@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('css/kurs/currency.css') }}">
     <link rel="stylesheet" href="{{ asset('css/kurs/custom-select.css') }}">
     <link rel="stylesheet" href="{{ asset('css/kurs/custom-input.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/gold-widget.css') }}">
 @endpush
 
 @section('content')
@@ -15,14 +14,15 @@
 
 				<div class="page-title-head hgroup"><h1>{{ $title }}</h1></div><div class="page-title-breadcrumbs"><div class="assistive-text">You are here:</div><ol class="breadcrumbs text-small" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/') }}" title="Home"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/kurs-obmena-valyut') }}/" title="Курс валют в банках Узбекистана"><span itemprop="name">Курс валют в банках Узбекистана</span></a><meta itemprop="position" content="2" /></li><li class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ $currency['name_ru'] }}</span><meta itemprop="position" content="3" /></li></ol></div>			</div>
 		</div>
-<div class="wf-wrap">
-<div class="wf-container-main">
 <div id="main" class="sidebar-right sidebar-divider-vertical"
      data-exchange-rates
      data-api-url="{{ $apiUrl }}"
      data-currency="{{ $currency['code'] }}"
      data-operation="{{ $operation }}"
      data-place="{{ $place }}">
+<div class="main-gradient"></div>
+<div class="wf-wrap">
+<div class="wf-container-main">
 <div id="content" class="content" role="main">
 <h2>Курс {{ mb_strtolower($currency['name_ru']) }} к суму</h2>
 <p>Актуальный курс обмена {{ $currency['name_ru'] }} ({{ $currency['code_upper'] }}) на узбекские сумы (UZS) в Узбекистане сегодня. Выберите самые выгодные условия покупки или продажи {{ mb_strtolower($currency['name_ru']) }} в банках Узбекистана.</p>
@@ -192,14 +192,7 @@
 
 </div>
 
-<aside id="sidebar" class="sidebar">
-    <div class="sidebar-content widget-divider-off">
-        <section class="widget"><div class="widget-title">Валютные новости</div>
-            <p style="padding:8px 0;color:#888;font-size:14px;">Раздел новостей будет подключён позже.</p>
-        </section>
-        <x-public.gold-prices-widget :prices="$goldPrices" :priced-on="$goldPricedOn" />
-    </div>
-</aside>
+<x-public.sidebar />
 
 </div>
 </div>

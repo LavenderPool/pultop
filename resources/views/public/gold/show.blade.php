@@ -26,11 +26,12 @@
     </div>
 </div>
 
-<div class="wf-wrap">
-<div class="wf-container-main">
-<div id="main" class="sidebar-none"
+<div id="main" class="sidebar-right sidebar-divider-vertical"
      data-gold-page
      data-api-url="{{ $chartApiUrl }}">
+<div class="main-gradient"></div>
+<div class="wf-wrap">
+<div class="wf-container-main">
 <div id="content" class="content" role="main">
 
 <p>Сколько сегодня стоит золото в Узбекистане? Где купить золото в слитках и монетах? Посмотреть динамику изменения стоимости золота можно на этой странице. Мы ежедневно обновляем стоимость продажи золотых слитков, которая устанавливается Центральным банком Узбекистана исходя из конъюнктуры международного рынка драгоценных металлов.</p>
@@ -103,7 +104,11 @@
                     @if ($defaultRegion !== null && $point['region'] !== $defaultRegion) style="display:none" @endif>
                     <td>{{ $point['bank_name'] }}</td>
                     <td>{{ $point['address'] }}</td>
-                    <td>{{ $point['phone'] ?? '' }}</td>
+                    <td>
+                        @foreach ($point['phones'] as $phone)
+                            {{ $phone }}@if (! $loop->last)<br>@endif
+                        @endforeach
+                    </td>
                 </tr>
             @empty
                 <tr>
@@ -115,6 +120,9 @@
 </section>
 
 </div>
+
+<x-public.sidebar :show-gold="false" />
+
 </div>
 </div>
 </div>

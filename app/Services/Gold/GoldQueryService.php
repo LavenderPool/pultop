@@ -98,7 +98,7 @@ class GoldQueryService
     }
 
     /**
-     * @return Collection<int, array{region: string, bank_name: string, address: string, phone: string|null}>
+     * @return Collection<int, array{region: string, bank_name: string, address: string, phones: list<string>}>
      */
     public function salePoints(): Collection
     {
@@ -110,8 +110,42 @@ class GoldQueryService
                 'region' => $point->region,
                 'bank_name' => $point->bank_name,
                 'address' => $point->address,
-                'phone' => $point->phone,
+                'phones' => $this->splitPhones($point->phone),
             ]);
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function splitPhones(?string $phone): array
+    {
+        if ($phone === null) {
+            return [];
+        }
+
+        $phone = trim($phone);
+
+        if ($phone === '') {
+            return [];
+        }
+
+        if (str_contains($phone, "\n")) {
+            $parts = preg_split('/\R+/u', $phone) ?: [];
+        } else {
+            $parts = preg_split('/\s+(?=\+)/u', $phone) ?: [];
+        }
+
+        $phones = [];
+
+        foreach ($parts as $part) {
+            $part = trim($part);
+
+            if ($part !== '') {
+                $phones[] = $part;
+            }
+        }
+
+        return $phones;
     }
 
     /**

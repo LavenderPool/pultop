@@ -12,16 +12,17 @@
 
 				<div class="page-title-head hgroup"><h1>{{ $title }}</h1></div><div class="page-title-breadcrumbs"><div class="assistive-text">You are here:</div><ol class="breadcrumbs text-small" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/') }}" title="Home"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">Курс валют в банках Узбекистана</span><meta itemprop="position" content="2" /></li></ol></div>			</div>
 		</div>
+<div id="main" class="sidebar-right sidebar-divider-vertical">
+<div class="main-gradient"></div>
 <div class="wf-wrap">
 <div class="wf-container-main">
-<div id="main" class="sidebar-none">
 <div id="content" class="content" role="main">
 
 		<div class="wpb-content-wrapper"><div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper">
 	<div class="wpb_text_column wpb_content_element " >
 		<div class="wpb_wrapper">
 			<p>Только у нас всегда самый точный и актуальный курс валют (доллар США, евро, рубль, тенге) в банках Узбекистана. Мы постоянно отслеживаем изменение курсов доллара США, Евро и российского рубля к узбекскому суму и оперативно обновляем информацию. Выгодный курс обмена казахского тенге в кассах банков вы так же найдете на этой странице.</p>
-<p>Узнавайте, сравнивайте, продавайте и приобретайте доллары, евро, рубли и тенге в Узбекистане по лучшему курсу на сегодняшний день. Адреса филиалов банков, а так же дислокация банкоматов по Узбекистану на персональных страницах <a href="https://pultop.uz/banks_of_uzbekistan/">банков</a>.</p>
+<p>Узнавайте, сравнивайте, продавайте и приобретайте доллары, евро, рубли и тенге в Узбекистане по лучшему курсу на сегодняшний день. Адреса филиалов банков, а так же дислокация банкоматов по Узбекистану на персональных страницах <a href="{{ route('banks.index') }}">банков</a>.</p>
 
 		</div>
 	</div>
@@ -71,8 +72,8 @@
 </div>
 	</div><!-- #content -->
 
-	
-	
+	<x-public.sidebar />
+
 </div>
 </div>
 </div>

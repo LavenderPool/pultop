@@ -22,7 +22,12 @@ class UpdateBankRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('banks', 'slug')->ignore($bankId)],
+            'address' => ['nullable', 'string', 'max:2000'],
+            'description' => ['nullable', 'string', 'max:5000'],
             'website' => ['nullable', 'url', 'max:255'],
+            'license' => ['nullable', 'string', 'max:255'],
+            'mfo' => ['nullable', 'string', 'max:64'],
+            'inn' => ['nullable', 'string', 'max:64'],
             'parser_code' => ['nullable', 'string', 'max:64', 'alpha_dash'],
             'rates_url' => ['nullable', 'url', 'max:500'],
             'is_active' => ['sometimes', 'boolean'],

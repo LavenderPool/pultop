@@ -99,13 +99,13 @@
                         <ul id="bottom-menu">
                             <li
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3452 first has-children depth-0">
-                                <a href="/banks_of_uzbekistan/" data-level="1"><i
+                                <a href="{{ route('banks.index') }}" data-level="1"><i
                                         class="fa fa-university"></i><span class="menu-item-text"><span
                                             class="menu-text">Банки</span></span></a>
                                 <ul class="footer-sub-nav gradient-hover hover-style-bg level-arrows-on">
                                     <li
                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2906 first depth-1">
-                                        <a href="/banks-of-uzbekistan/" data-level="2"><span
+                                        <a href="{{ route('banks.rating') }}" data-level="2"><span
                                                 class="menu-item-text"><span class="menu-text">Рейтинг
                                                     Банков</span></span></a></li>
                                     <li
@@ -281,8 +281,8 @@
                             </svg><select aria-label="Dropdown menu" class="hasCustomSelect"
                                 style="appearance: menulist-button; width: 341px; position: absolute; opacity: 0; height: 45px; font-size: 15px; visibility: visible;">
                                 <option selected="selected" value="">———</option>
-                                <option value="/banks_of_uzbekistan/" data-level="1">Банки</option>
-                                <option value="/banks-of-uzbekistan/" data-level="2">— Рейтинг Банков
+                                <option value="{{ route('banks.index') }}" data-level="1">Банки</option>
+                                <option value="{{ route('banks.rating') }}" data-level="2">— Рейтинг Банков
                                 </option>
                                 <option value="/ofitsialnyj-kurs-valyut/" data-level="2">— Официальный
                                     курс ЦБ</option>

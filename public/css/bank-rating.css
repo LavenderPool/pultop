@@ -1,0 +1,56 @@
+.bank-rating-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5em;
+}
+
+.bank-rating-table td,
+.bank-rating-table th {
+  padding: 6px 8px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.bank-rating-table .bank-rating-title {
+  font-weight: 700;
+  text-align: left;
+}
+
+.bank-rating-table .bank-rating-unit pre {
+  margin: 0;
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+
+.bank-rating-table .bank-rating-num,
+.bank-rating-table .bank-rating-metric-head {
+  text-align: right;
+}
+
+.bank-rating-table .bank-rating-pos {
+  width: 6%;
+  text-align: left;
+}
+
+.bank-rating-table .bank-rating-name {
+  width: 33%;
+  text-align: left;
+}
+
+.bank-rating-table tr.bank-rating-row-total td,
+.bank-rating-table tr.bank-rating-row-group td {
+  font-weight: 700;
+}
+
+.bank-rating-empty {
+  color: #888;
+  margin: 1em 0 2em;
+}
+
+@media (max-width: 768px) {
+  .bank-rating-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

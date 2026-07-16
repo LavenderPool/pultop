@@ -22,9 +22,10 @@
     </div>
 </div>
 
-<div class="wf-wrap">
-    <div class="wf-container-main">
-        <div id="main" class="sidebar-none">
+<div id="main" class="sidebar-right sidebar-divider-vertical">
+    <div class="main-gradient"></div>
+    <div class="wf-wrap">
+        <div class="wf-container-main">
             <div id="content" class="content" role="main">
                 <div class="wpb-content-wrapper">
                     <div class="vc_row wpb_row vc_row-fluid">
@@ -46,6 +47,8 @@
                     </div>
                 </div>
             </div>
+
+            <x-public.sidebar />
         </div>
     </div>
 </div>

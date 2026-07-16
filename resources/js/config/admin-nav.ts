@@ -4,9 +4,11 @@ import {
     LayoutDashboard,
     type LucideIcon,
     RefreshCw,
+    Settings,
 } from 'lucide-react';
 import { dashboard } from '@/routes/admin';
 import { index as banksIndex } from '@/routes/admin/banks';
+import { edit as generalSettingsEdit } from '@/routes/admin/settings/general';
 import { edit as goldSettingsEdit } from '@/routes/admin/settings/gold';
 import { edit as ratesSettingsEdit } from '@/routes/admin/settings/rates';
 
@@ -26,6 +28,11 @@ export const adminNav: AdminNavItem[] = [
         title: 'Банки',
         href: banksIndex.url(),
         icon: Building2,
+    },
+    {
+        title: 'Общие настройки',
+        href: generalSettingsEdit.url(),
+        icon: Settings,
     },
     {
         title: 'Курсы / парсер',

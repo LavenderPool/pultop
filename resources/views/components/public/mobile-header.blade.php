@@ -11,7 +11,7 @@
 </div>
 <ul id="mobile-menu" class="mobile-main-nav">
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3452 first has-children depth-0">
-<a href='/banks_of_uzbekistan/' data-level='1'>
+<a href="{{ route('banks.index') }}" data-level='1'>
 <i class="fa fa-university">
 </i>
 <span class="menu-item-text">
@@ -20,7 +20,7 @@
 </a>
 <ul class="sub-nav gradient-hover hover-style-bg level-arrows-on">
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2906 first depth-1">
-<a href='/banks-of-uzbekistan/' data-level='2'>
+<a href="{{ route('banks.rating') }}" data-level="2">
 <span class="menu-item-text">
 <span class="menu-text">Рейтинг Банков</span>
 </span>

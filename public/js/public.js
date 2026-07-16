@@ -28,23 +28,63 @@
   closeBtn?.addEventListener('click', closeMobileMenu);
 
   // Sticky / phantom header
-  const stickyOffset = 94;
+  function stickyOffset() {
+    return masthead?.offsetHeight || 60;
+  }
 
   function updateSticky() {
     if (!masthead) {
       return;
     }
-    if (window.scrollY >= stickyOffset) {
+    if (window.scrollY >= stickyOffset()) {
       body.classList.add('sticky-on', 'phantom-on');
       masthead.classList.add('sticky-on', 'phantom-on');
     } else {
-      body.classList.remove('phantom-on');
-      masthead.classList.remove('phantom-on');
+      body.classList.remove('sticky-on', 'phantom-on');
+      masthead.classList.remove('sticky-on', 'phantom-on');
     }
   }
 
   window.addEventListener('scroll', updateSticky, { passive: true });
   updateSticky();
+
+  // WPBakery full-width rows (no VC runtime) — stretch to viewport
+  function layoutVcFullWidth() {
+    const pageEl = document.getElementById('page') || document.documentElement;
+    const pageWidth = pageEl.getBoundingClientRect().width || window.innerWidth;
+    const offset = Math.max(0, Math.round((pageWidth - (document.querySelector('.wf-wrap')?.getBoundingClientRect().width || pageWidth)) / 2));
+
+    document.querySelectorAll('[data-vc-full-width="true"]').forEach((row) => {
+      const width = Math.round(pageWidth);
+      const left = -offset;
+      row.style.position = 'relative';
+      row.style.boxSizing = 'border-box';
+      row.style.width = `${width}px`;
+      row.style.left = `${left}px`;
+      row.style.paddingLeft = `${offset}px`;
+      row.style.paddingRight = `${offset}px`;
+      row.setAttribute('data-vc-full-width-init', 'true');
+
+      row.querySelectorAll('.upb_row_bg[data-bg-override="ex-full"]').forEach((bg) => {
+        bg.style.minWidth = `${width}px`;
+        bg.style.width = `${width}px`;
+        bg.style.left = `${left}px`;
+      });
+    });
+
+    document.querySelectorAll('.upb_row_bg[data-bg-override="ex-full"]').forEach((bg) => {
+      if (bg.closest('[data-vc-full-width="true"]')) {
+        return;
+      }
+      const width = Math.round(pageWidth);
+      bg.style.minWidth = `${width}px`;
+      bg.style.width = `${width}px`;
+      bg.style.left = `${-offset}px`;
+    });
+  }
+
+  layoutVcFullWidth();
+  window.addEventListener('resize', layoutVcFullWidth, { passive: true });
 
   function normalizePath(path) {
     if (!path) {
