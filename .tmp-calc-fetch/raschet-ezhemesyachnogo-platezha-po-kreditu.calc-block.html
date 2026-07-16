@@ -1,0 +1,117 @@
+<style type="text/css">
+/* <![CDATA[ */
+#wp_calc_finance_0 {
+border-color: #1f365c;
+}
+#wp_calc_finance_0 .wp-calc-finance-slider .slider-btn,
+#wp_calc_finance_0 .wp-calc-finance-slider .ui-widget-header { 
+	background: #1f365c !important;
+} 
+#wp_calc_finance_0 .wp-calc-finance-slider .slider-btn:before { 
+	border-bottom-color: #1f365c;
+}
+#wp_calc_finance_0 .btn-switcher .switcher__button--active, 
+#wp_calc_finance_0 .btn-switcher .switcher__button--active:hover {
+    background: #1f365c;
+}
+#wp_calc_finance_0 .calc_finance_button {
+	
+	background-image: none;
+background-color: #1f365c !important;
+}
+#wp_calc_finance_0 .calc_finance_button:hover {
+color: #dd9933 !important;
+}
+#wp_calc_finance_0 .calc_finance_reset_button {
+	
+	background-image: none;
+background-color: #dd9933 !important;
+display: initial !important;
+}
+#wp_calc_finance_0 input[type="text"], 
+#wp_calc_finance_0 input[type="tel"], 
+#wp_calc_finance_0 input[type="number"], 
+#wp_calc_finance_0 input[type="date"], 
+#wp_calc_finance_0 select, 
+#wp_calc_finance_0 textarea {
+border-color: #1f365c !important;
+}
+#wp_calc_finance_0 table.table-schedule th {
+}
+#wp_calc_finance_0 input[type="text"].result {
+	background-color: inherit !important;
+}
+
+/* ]]&gt; */
+</style>
+<script>
+  jQuery( function() {
+    jQuery( "#wp_calc_finance_0 .wp-calc-finance-slider-credit" ).show();
+    jQuery( "#wp_calc_finance_0 .wp-calc-finance-slider-credit" ).slider({
+	    range: "min",
+	    min: 1000000,
+	    max: 100000000,
+//	    step: 1,
+	    value: 10000000,
+	    slide: function(event, ui) {
+        	jQuery( "#wp_calc_finance_0 .wp-calc-finance-slider-credit" ).prevAll("input[type=text]").val(ui.value);
+        	if (typeof calc_finance_recalc_0 === 'function') {
+        		calc_finance_recalc_0();
+        	}
+        }
+    });
+    jQuery( "#wp_calc_finance_0 .wp-calc-finance-slider-credit" ).prevAll("input[type=text]").change(function() {
+    	jQuery( "#wp_calc_finance_0 .wp-calc-finance-slider-credit" ).slider("value", jQuery(this).val().replace(/[^0-9\.]/g,''));
+    });
+  });
+</script>
+
+﻿<div class="wp-calc-finance" id="wp_calc_finance_0">
+<input type="hidden" class="round_up_calc" value="0"/>
+
+<h3>Сколько платить по кредиту в месяц?</h3>
+
+<form name="month_payment_0">
+<table cellspacing="0" cellpadding="3" class="wp-calc-finance-layout">
+<tr>
+<td>Сумма кредита</td>
+<td>
+	<input name="l" class="l" type="text" value="10000000" /> сум	<div class="wp-calc-finance-slider wp-calc-finance-slider-credit" style="display: none">
+		  <div class="slider-btn ui-slider-handle"></div>
+	</div>
+</td>
+</tr>
+<tr>
+<td>Процентная ставка</td>
+<td><input name="i" class="i" type="text" value="20"/> %</td>
+</tr>
+<tr>
+<td>Срок кредитования</td>
+<td><input name="n" class="n" type="text" value="1"/> лет</td>
+</tr>
+<tr>
+<td>Начисление процентов</td>
+<td>
+	<select name="month_payment_comp" class="comp" onchange="calc_finance_month_payment('wp_calc_finance_0')">
+		<option name="mon" value="0">Ежемесячно</option>
+		<option name="qua" value="1">Поквартально</option>
+		<option name="sem" value="2">Раз в полгода</option>
+		<option name="ann" value="3">Ежегодно</option>
+	</select>
+</td>
+</tr>
+</table>
+
+<p align="center">		
+	<input type="button" name="calc" value="Рассчитать" onclick="calc_finance_month_payment('wp_calc_finance_0'); return false;" class="calc_finance_button"/>
+	<input type="reset" value="Сброс" class="calc_finance_reset_button" /> 
+</p>
+
+
+<table cellspacing="0" cellpadding="3" class="wp-calc-finance-layout">
+<tr>
+<td>Сумма платежа</td>
+<td> <input type="text" name="op" class="op result" readonly /> сум </td>
+</tr>
+</table></form>
+</div>

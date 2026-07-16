@@ -1,5 +1,14 @@
-import { LayoutDashboard, type LucideIcon } from 'lucide-react';
+import {
+    Building2,
+    Coins,
+    LayoutDashboard,
+    type LucideIcon,
+    RefreshCw,
+} from 'lucide-react';
 import { dashboard } from '@/routes/admin';
+import { index as banksIndex } from '@/routes/admin/banks';
+import { edit as goldSettingsEdit } from '@/routes/admin/settings/gold';
+import { edit as ratesSettingsEdit } from '@/routes/admin/settings/rates';
 
 export type AdminNavItem = {
     title: string;
@@ -12,5 +21,20 @@ export const adminNav: AdminNavItem[] = [
         title: 'Dashboard',
         href: dashboard.url(),
         icon: LayoutDashboard,
+    },
+    {
+        title: 'Банки',
+        href: banksIndex.url(),
+        icon: Building2,
+    },
+    {
+        title: 'Курсы / парсер',
+        href: ratesSettingsEdit.url(),
+        icon: RefreshCw,
+    },
+    {
+        title: 'Золото / парсер',
+        href: goldSettingsEdit.url(),
+        icon: Coins,
     },
 ];

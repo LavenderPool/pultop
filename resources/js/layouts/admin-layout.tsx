@@ -1,5 +1,5 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { ChevronDown, LogOut } from 'lucide-react';
+import { ChevronDown, ExternalLink, LogOut } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
 import { buttonVariants } from '@/components/ui/button';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { adminNav } from '@/config/admin-nav';
 import { cn } from '@/lib/utils';
+import { home } from '@/routes';
 import { logout } from '@/routes/admin';
 import type { SharedData } from '@/types';
 
@@ -38,6 +39,21 @@ export default function AdminLayout({ children }: PropsWithChildren) {
                     <span className="text-sm font-semibold tracking-tight">
                         Admin
                     </span>
+                </div>
+
+                <div className="p-3 pb-0">
+                    <a
+                        href={home.url()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                            buttonVariants({ size: 'sm' }),
+                            'w-full gap-1.5',
+                        )}
+                    >
+                        <ExternalLink className="size-3.5" />
+                        На сайт
+                    </a>
                 </div>
 
                 <nav className="flex flex-1 flex-col gap-1 p-3">
