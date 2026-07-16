@@ -1,0 +1,11 @@
+.git
+.env
+.dockerignore
+node_modules
+vendor
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+database/*.sqlite
+_docker/nginx/ssl
