@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
             <aside className="flex w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
                 <div className="flex h-14 shrink-0 items-center border-b border-sidebar-border px-4">
                     <span className="text-sm font-semibold tracking-tight">
-                        Admin
+                        Админка
                     </span>
                 </div>
 
@@ -143,7 +143,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
                                     onClick={() => router.post(logout.url())}
                                 >
                                     <LogOut />
-                                    Log out
+                                    Выйти
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

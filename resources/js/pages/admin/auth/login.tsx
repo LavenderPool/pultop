@@ -14,13 +14,13 @@ import { store } from '@/routes/admin/login';
 export default function Login() {
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4">
-            <Head title="Admin Login" />
+            <Head title="Вход" />
 
             <Card className="w-full max-w-md">
                 <CardHeader>
-                    <CardTitle>Admin sign in</CardTitle>
+                    <CardTitle>Вход в админку</CardTitle>
                     <CardDescription>
-                        Enter your credentials to access the dashboard.
+                        Введите email и пароль.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -49,7 +49,7 @@ export default function Login() {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label htmlFor="password">Пароль</Label>
                                     <Input
                                         id="password"
                                         name="password"
@@ -71,11 +71,11 @@ export default function Login() {
                                         name="remember"
                                         className="size-4 rounded border-input"
                                     />
-                                    Remember me
+                                    Запомнить меня
                                 </label>
 
                                 <Button type="submit" disabled={processing}>
-                                    {processing ? 'Signing in…' : 'Sign in'}
+                                    {processing ? 'Вход…' : 'Войти'}
                                 </Button>
                             </>
                         )}

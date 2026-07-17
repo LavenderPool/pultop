@@ -129,8 +129,11 @@ return [
     | storage. By default, no PHP classes will be unserialized from your
     | cache to prevent gadget chain attacks if your APP_KEY is leaked.
     |
+    | Enabled: public query services cache Eloquent models/collections via
+    | PublicCacheService; class restoration must be allowed on read.
+    |
     */
 
-    'serializable_classes' => false,
+    'serializable_classes' => true,
 
 ];

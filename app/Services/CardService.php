@@ -18,6 +18,15 @@ class CardService
         private readonly BankService $banks,
     ) {}
 
+    public function activeCount(): int
+    {
+        return $this->cache->remember(
+            PublicCacheService::GROUP_CARDS,
+            'active_count',
+            fn () => Card::query()->active()->count(),
+        );
+    }
+
     /**
      * @param  array{
      *     bank_id?: int|null,

@@ -28,7 +28,7 @@ export type AdminNavItem = {
 
 export const adminNav: AdminNavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Дашборд',
         href: dashboard.url(),
         icon: LayoutDashboard,
     },
