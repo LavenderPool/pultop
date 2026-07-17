@@ -73,8 +73,17 @@
                                     'bank-rating-row-bank' => $row->row_type === \App\Models\BankRatingRow::TYPE_BANK,
                                 ])>
                                     @if ($row->row_type === \App\Models\BankRatingRow::TYPE_BANK)
+                                        @php
+                                            $ratingBank = $banksByName[mb_strtolower(trim((string) $row->name))] ?? null;
+                                        @endphp
                                         <td class="bank-rating-pos">{{ $row->position }}</td>
-                                        <td class="bank-rating-name">{{ $row->name }}</td>
+                                        <td class="bank-rating-name">
+                                            @if ($ratingBank)
+                                                <a href="{{ route('banks.show', $ratingBank) }}">{{ $row->name }}</a>
+                                            @else
+                                                {{ $row->name }}
+                                            @endif
+                                        </td>
                                     @else
                                         <td colspan="2" class="bank-rating-name">{{ $row->name }}</td>
                                     @endif

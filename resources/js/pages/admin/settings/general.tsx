@@ -1,4 +1,4 @@
-import { Form, Head, usePage } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -10,7 +10,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { update } from '@/routes/admin/settings/general';
-import type { SharedData } from '@/types';
 
 type Props = {
     settings: {
@@ -51,8 +50,6 @@ const fields = [
 ];
 
 export default function GeneralSettings({ settings }: Props) {
-    const { flash } = usePage<SharedData>().props;
-
     return (
         <>
             <Head title="Общие настройки" />
@@ -68,13 +65,6 @@ export default function GeneralSettings({ settings }: Props) {
                         скрыт.
                     </p>
                 </div>
-
-                {flash?.success && (
-                    <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm">
-                        {flash.success}
-                    </div>
-                )}
-
                 <Card>
                     <CardHeader>
                         <CardTitle>Социальные сети</CardTitle>

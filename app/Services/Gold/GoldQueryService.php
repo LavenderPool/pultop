@@ -6,12 +6,17 @@ use App\Enums\GoldWeight;
 use App\Models\GoldPrice;
 use App\Models\GoldPriceHistory;
 use App\Models\GoldSalePoint;
+use App\Services\PublicCacheService;
 use App\Support\Money;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class GoldQueryService
 {
+    public function __construct(
+        private readonly PublicCacheService $cache,
+    ) {}
+
     /**
      * @return list<array{
      *     weight_grams: int,
@@ -33,54 +38,66 @@ class GoldQueryService
      */
     public function currentPrices(): array
     {
-        $byWeight = GoldPrice::query()
-            ->get()
-            ->keyBy('weight_grams');
+        return $this->cache->remember(
+            PublicCacheService::GROUP_GOLD,
+            'current_prices',
+            function () {
+                $byWeight = GoldPrice::query()
+                    ->get()
+                    ->keyBy('weight_grams');
 
-        $items = [];
+                $items = [];
 
-        foreach (GoldWeight::ordered() as $weight) {
-            /** @var GoldPrice|null $price */
-            $price = $byWeight->get($weight->value);
+                foreach (GoldWeight::ordered() as $weight) {
+                    /** @var GoldPrice|null $price */
+                    $price = $byWeight->get($weight->value);
 
-            $diff = $price?->diff;
-            $diffPositive = null;
+                    $diff = $price?->diff;
+                    $diffPositive = null;
 
-            if ($diff !== null) {
-                $diffPositive = (float) $diff >= 0;
-            }
+                    if ($diff !== null) {
+                        $diffPositive = (float) $diff >= 0;
+                    }
 
-            $items[] = [
-                'weight_grams' => $weight->value,
-                'weight_label' => $weight->label(),
-                'weight_label_long' => $weight->labelLong(),
-                'image' => $weight->imageFile(),
-                'sell_price' => $price?->sell_price,
-                'sell_price_formatted' => $this->formatSum($price?->sell_price),
-                'buyback_good' => $price?->buyback_good,
-                'buyback_good_formatted' => $this->formatSum($price?->buyback_good),
-                'buyback_damaged' => $price?->buyback_damaged,
-                'buyback_damaged_formatted' => $this->formatSum($price?->buyback_damaged),
-                'diff' => $diff,
-                'diff_formatted' => $diff !== null ? $this->formatDiff($diff) : null,
-                'diff_positive' => $diffPositive,
-                'priced_on' => $price?->priced_on?->format('d.m.Y'),
-                'wp_index' => $weight->wpIndex(),
-            ];
-        }
+                    $items[] = [
+                        'weight_grams' => $weight->value,
+                        'weight_label' => $weight->label(),
+                        'weight_label_long' => $weight->labelLong(),
+                        'image' => $weight->imageFile(),
+                        'sell_price' => $price?->sell_price,
+                        'sell_price_formatted' => $this->formatSum($price?->sell_price),
+                        'buyback_good' => $price?->buyback_good,
+                        'buyback_good_formatted' => $this->formatSum($price?->buyback_good),
+                        'buyback_damaged' => $price?->buyback_damaged,
+                        'buyback_damaged_formatted' => $this->formatSum($price?->buyback_damaged),
+                        'diff' => $diff,
+                        'diff_formatted' => $diff !== null ? $this->formatDiff($diff) : null,
+                        'diff_positive' => $diffPositive,
+                        'priced_on' => $price?->priced_on?->format('d.m.Y'),
+                        'wp_index' => $weight->wpIndex(),
+                    ];
+                }
 
-        return $items;
+                return $items;
+            },
+        );
     }
 
     public function latestPricedOn(): ?string
     {
-        $date = GoldPrice::query()->max('priced_on');
+        return $this->cache->remember(
+            PublicCacheService::GROUP_GOLD,
+            'latest_priced_on',
+            function () {
+                $date = GoldPrice::query()->max('priced_on');
 
-        if ($date === null) {
-            return null;
-        }
+                if ($date === null) {
+                    return null;
+                }
 
-        return Carbon::parse($date)->format('d.m.Y');
+                return Carbon::parse($date)->format('d.m.Y');
+            },
+        );
     }
 
     /**
@@ -88,13 +105,17 @@ class GoldQueryService
      */
     public function regions(): array
     {
-        return GoldSalePoint::query()
-            ->active()
-            ->orderBy('sort_order')
-            ->pluck('region')
-            ->unique()
-            ->values()
-            ->all();
+        return $this->cache->remember(
+            PublicCacheService::GROUP_GOLD,
+            'regions',
+            fn () => GoldSalePoint::query()
+                ->active()
+                ->orderBy('sort_order')
+                ->pluck('region')
+                ->unique()
+                ->values()
+                ->all(),
+        );
     }
 
     /**
@@ -102,16 +123,24 @@ class GoldQueryService
      */
     public function salePoints(): Collection
     {
-        return GoldSalePoint::query()
-            ->active()
-            ->orderBy('sort_order')
-            ->get()
-            ->map(fn (GoldSalePoint $point) => [
-                'region' => $point->region,
-                'bank_name' => $point->bank_name,
-                'address' => $point->address,
-                'phones' => $this->splitPhones($point->phone),
-            ]);
+        /** @var list<array{region: string, bank_name: string, address: string, phones: list<string>}> $points */
+        $points = $this->cache->remember(
+            PublicCacheService::GROUP_GOLD,
+            'sale_points',
+            fn () => GoldSalePoint::query()
+                ->active()
+                ->orderBy('sort_order')
+                ->get()
+                ->map(fn (GoldSalePoint $point) => [
+                    'region' => $point->region,
+                    'bank_name' => $point->bank_name,
+                    'address' => $point->address,
+                    'phones' => $this->splitPhones($point->phone),
+                ])
+                ->all(),
+        );
+
+        return collect($points);
     }
 
     /**
@@ -161,50 +190,56 @@ class GoldQueryService
         $weight = GoldWeight::fromWpIndex($wpIndex) ?? GoldWeight::G5;
         $period = in_array($period, [7, 30, 90], true) ? $period : 7;
 
-        $rows = GoldPriceHistory::query()
-            ->where('weight_grams', $weight->value)
-            ->orderByDesc('price_date')
-            ->limit($period)
-            ->get()
-            ->sortBy('price_date')
-            ->values();
+        return $this->cache->remember(
+            PublicCacheService::GROUP_GOLD,
+            $this->cache->key(['chart', $weight->value, $period]),
+            function () use ($weight, $period) {
+                $rows = GoldPriceHistory::query()
+                    ->where('weight_grams', $weight->value)
+                    ->orderByDesc('price_date')
+                    ->limit($period)
+                    ->get()
+                    ->sortBy('price_date')
+                    ->values();
 
-        $labels = [];
-        $data = [];
-        $tableRows = [];
+                $labels = [];
+                $data = [];
+                $tableRows = [];
 
-        foreach ($rows as $row) {
-            $labels[] = $row->price_date->format('d.m.Y');
-            $data[] = (float) $row->price;
-        }
+                foreach ($rows as $row) {
+                    $labels[] = $row->price_date->format('d.m.Y');
+                    $data[] = (float) $row->price;
+                }
 
-        foreach ($rows->sortByDesc('price_date')->values() as $row) {
-            $tableRows[] = [
-                'date' => $row->price_date->format('d.m.Y'),
-                'price' => (float) $row->price,
-                'diff' => $row->diff !== null ? (float) $row->diff : null,
-            ];
-        }
+                foreach ($rows->sortByDesc('price_date')->values() as $row) {
+                    $tableRows[] = [
+                        'date' => $row->price_date->format('d.m.Y'),
+                        'price' => (float) $row->price,
+                        'diff' => $row->diff !== null ? (float) $row->diff : null,
+                    ];
+                }
 
-        return [
-            'data' => [
-                'labels' => $labels,
-                'datasets' => [[
-                    'type' => 'line',
-                    'label' => 'Цена за '.$weight->value.' гр. ',
-                    'data' => $data,
-                    'backgroundColor' => ['rgba(31, 54, 92, 0.9)'],
-                    'borderColor' => ['rgba(248, 176, 2, 1)'],
-                    'borderWidth' => 1,
-                ]],
-                'options' => [
-                    'scales' => [
-                        'y' => ['beginAtZero' => true],
+                return [
+                    'data' => [
+                        'labels' => $labels,
+                        'datasets' => [[
+                            'type' => 'line',
+                            'label' => 'Цена за '.$weight->value.' гр. ',
+                            'data' => $data,
+                            'backgroundColor' => ['rgba(31, 54, 92, 0.9)'],
+                            'borderColor' => ['rgba(248, 176, 2, 1)'],
+                            'borderWidth' => 1,
+                        ]],
+                        'options' => [
+                            'scales' => [
+                                'y' => ['beginAtZero' => true],
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'rows' => $tableRows,
-        ];
+                    'rows' => $tableRows,
+                ];
+            },
+        );
     }
 
     private function formatSum(mixed $value): string

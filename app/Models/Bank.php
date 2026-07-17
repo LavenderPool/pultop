@@ -81,6 +81,30 @@ class Bank extends Model
     }
 
     /**
+     * @return HasMany<Credit, $this>
+     */
+    public function credits(): HasMany
+    {
+        return $this->hasMany(Credit::class);
+    }
+
+    /**
+     * @return HasMany<Deposit, $this>
+     */
+    public function deposits(): HasMany
+    {
+        return $this->hasMany(Deposit::class);
+    }
+
+    /**
+     * @return HasMany<Card, $this>
+     */
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class);
+    }
+
+    /**
      * @return HasMany<BankRate, $this>
      */
     public function rates(): HasMany

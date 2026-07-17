@@ -4,6 +4,7 @@ namespace App\Services\Gold;
 
 use App\Enums\ParseRunStatus;
 use App\Models\GoldParseRun;
+use App\Services\PublicCacheService;
 use App\Services\SettingService;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -14,6 +15,7 @@ class GoldParseOrchestrator
         private readonly PultopWpGoldImporter $importer,
         private readonly GoldPriceWriter $writer,
         private readonly SettingService $settings,
+        private readonly PublicCacheService $cache,
     ) {}
 
     public function run(): GoldParseRun
@@ -75,6 +77,10 @@ class GoldParseOrchestrator
             'details' => $details,
             'finished_at' => now(),
         ]);
+
+        if ($ok > 0) {
+            $this->cache->forgetGroup(PublicCacheService::GROUP_GOLD);
+        }
 
         return $run->fresh();
     }

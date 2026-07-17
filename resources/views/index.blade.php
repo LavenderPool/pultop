@@ -1,5 +1,9 @@
 @extends('layouts.public')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/articles.css') }}">
+@endpush
+
 @section('title', 'Кредиты, вклады, курсы валют в Узбекистане | PulTop.Uz')
 
 @section('body_class', 'home')
@@ -19,7 +23,7 @@
                                         <div class="wpb_wrapper">
                                             <div class="main-panel">
 
-                                                <a class="main-link" href="/vse-kredity-uzbekistana/">
+                                                <a class="main-link" href="{{ route('credits.all') }}">
                                                     <div class="main-body">
                                                         <div>
                                                             <div class="main-title">Подбор кредита</div>
@@ -32,7 +36,7 @@
                                                                     с минимальной процентной ставкой.
                                                                 </div>
                                                             </div>
-                                                            <div class="main-count">156 предложений в базе</div>
+                                                            <div class="main-count">{{ $creditsCount }} предложений в базе</div>
 
                                                         </div>
                                                         <div class="main-btn">Подобрать кредит</div>
@@ -45,7 +49,7 @@
                                                         </picture>
                                                     </div>
                                                 </a>
-                                                <a class="main-link" href="/vkladi/">
+                                                <a class="main-link" href="{{ route('deposits.index') }}">
                                                     <div class="main-body">
                                                         <div>
                                                             <div class="main-title">Подбор вклада</div>
@@ -58,7 +62,7 @@
                                                                     накопления денежных средств.
                                                                 </div>
                                                             </div>
-                                                            <div class="main-count">246 предложений в базе</div>
+                                                            <div class="main-count">{{ $depositsCount }} предложений в базе</div>
 
                                                         </div>
                                                         <div class="main-btn">Подобрать вклад</div>
@@ -100,7 +104,7 @@
                                                 <div class="capability-panel">
                                                     <div class="capability-content">
                                                         <div class="capability_row">
-                                                            <a class="capability-link" href="/vkladi/">
+                                                            <a class="capability-link" href="{{ route('deposits.index') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" version="1.1" viewBox="0 0 16 16"
@@ -115,7 +119,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="capability_row">
-                                                            <a class="capability-link" href="/sravnenie-bankovskih-kart/">
+                                                            <a class="capability-link" href="{{ route('cards.index') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" version="1.1" viewBox="0 0 16 16"
@@ -130,7 +134,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="capability_row">
-                                                            <a class="capability-link" href="/potrebitelskie-krediti/">
+                                                            <a class="capability-link" href="{{ route('credits.alias.potrebitelskie-krediti') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" viewBox="0 0 640 512" height="1em"
@@ -144,7 +148,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="capability_row">
-                                                            <a class="capability-link" href="/avtokredity-v-uzbekistane/">
+                                                            <a class="capability-link" href="{{ route('credits.alias.avtokredity-v-uzbekistane') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" viewBox="0 0 512 512" height="1em"
@@ -159,7 +163,7 @@
                                                         </div>
                                                         <div class="capability_row">
                                                             <a class="capability-link"
-                                                                href="/ipotechnye-kredity-v-uzbekistane/">
+                                                                href="{{ route('credits.alias.ipotechnye-kredity-v-uzbekistane') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" viewBox="0 0 448 512" height="1em"
@@ -174,7 +178,7 @@
                                                         </div>
                                                         <div class="capability_row">
                                                             <a class="capability-link"
-                                                                href="/bankovskie-mikrozajmy-v-uzbekistane/">
+                                                                href="{{ route('credits.alias.bankovskie-mikrozajmy-v-uzbekistane') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" viewBox="0 0 640 512" height="1em"
@@ -188,7 +192,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="capability_row">
-                                                            <a class="capability-link" href="/overdraft-v-uzbekistane/">
+                                                            <a class="capability-link" href="{{ route('credits.alias.overdraft-v-uzbekistane') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" version="1.1" viewBox="0 0 16 16"
@@ -204,7 +208,7 @@
                                                         </div>
                                                         <div class="capability_row">
                                                             <a class="capability-link"
-                                                                href="/kredity-nachinayushhim-biznesmenam-v-uzbekistane/">
+                                                                href="{{ route('credits.alias.kredity-nachinayushhim-biznesmenam-v-uzbekistane') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" version="1.1" viewBox="0 0 16 16"
@@ -220,7 +224,7 @@
                                                         </div>
                                                         <div class="capability_row">
                                                             <a class="capability-link"
-                                                                href="/obrazovatelnye-kredity-v-uzbekistane/">
+                                                                href="{{ route('credits.alias.obrazovatelnye-kredity-v-uzbekistane') }}">
                                                                 <div class="capability-icon">
                                                                     <svg stroke="currentColor" fill="currentColor"
                                                                         stroke-width="0" viewBox="0 0 640 512" height="1em"
@@ -343,7 +347,7 @@
                                                                                 href="{{ route('exchange-rates.index') }}">Сравнить
                                                                                 курсы</a>
                                                                             <a class="br-right-btn-2"
-                                                                                href="https://t.me/pul_top_uzb"
+                                                                                href="{{ $telegramUrl }}"
                                                                                 target="_blank">Канал в телеграм</a>
                                                                         </div>
                                                                     </div>
@@ -778,7 +782,7 @@
                                                                 </div>
                                                                 <h3 class="feature-title">АКТУАЛЬНАЯ ИНФОРМАЦИЯ</h3>
                                                                 <p class="feature-text">Мы ежедневно собираем и обновляем
-                                                                    предложения и информацию более 100 финансовых
+                                                                    предложения и информацию более {{ $organizationsCount }} финансовых
                                                                     организаций</p>
                                                                 <div class="feature-decoration">
                                                                     <svg viewBox="0 0 100 20" fill="none"
@@ -912,74 +916,55 @@
                                     <div class="wpb_text_column wpb_content_element ">
                                         <div class="wpb_wrapper">
 
-                                            <div class="posts-сarousel">
+                                            <div class="posts-сarousel" data-posts-carousel>
                                                 <div class="posts-header">
-                                                    <div id-category="24" show-date="no" class="posts-header-item active">
-                                                        Статьи</div>
-                                                    <div id-category="50" show-date="yes" class="posts-header-item">Новости
-                                                    </div>
-                                                    <div id-category="35" show-date="yes" class="posts-header-item">Новости
-                                                        банков</div>
-                                                    <div id-category="36" show-date="yes" class="posts-header-item">События
-                                                        и Акции</div>
+                                                    @foreach ($articleTabs as $index => $tab)
+                                                        <button
+                                                            type="button"
+                                                            class="posts-header-item{{ $index === 0 ? ' active' : '' }}"
+                                                            data-posts-tab="{{ $tab['value'] }}"
+                                                        >{{ $tab['label'] }}</button>
+                                                    @endforeach
                                                 </div>
 
                                                 <div class="posts-item-bg">
                                                     <div class="posts-item-content">
-                                                        <div class="posts-item-row">
-
-
-
-                                                            <div class="post-item">
-                                                                <a href="https://pultop.uz/?p=36487">
-                                                                    <div class="post-img">
-                                                                        <img src="https://pultop.uz/wp-content/uploads/2026/06/kartinka-3-3--300x169.png"
-                                                                            alt="Суму удалось сохранить равновесие: как прошла очередная неделя июня">
-                                                                    </div>
-                                                                    <div class="post-item-details">
-                                                                        <span class="post-date">
-                                                                            <span></span>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="post-title">Суму удалось сохранить
-                                                                        равновесие: как прошла очередная неделя июня</div>
-                                                                </a>
+                                                        @foreach ($articleTabs as $index => $tab)
+                                                            <div
+                                                                class="posts-panel{{ $index === 0 ? ' is-active' : '' }}"
+                                                                data-posts-panel="{{ $tab['value'] }}"
+                                                            >
+                                                                <div class="posts-item-row">
+                                                                    @forelse ($tab['articles'] as $article)
+                                                                        <div class="post-item">
+                                                                            <a href="{{ route('articles.show', $article) }}">
+                                                                                <div class="post-img">
+                                                                                    @if ($article->coverUrl())
+                                                                                        <img
+                                                                                            src="{{ $article->coverUrl() }}"
+                                                                                            alt="{{ $article->title }}"
+                                                                                            loading="lazy"
+                                                                                        >
+                                                                                    @endif
+                                                                                </div>
+                                                                                <div class="post-item-details">
+                                                                                    <span class="post-date">
+                                                                                        <span>
+                                                                                            @if ($tab['show_date'] && $article->published_at)
+                                                                                                {{ $article->published_at->format('d.m.Y') }}
+                                                                                            @endif
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="post-title">{{ $article->title }}</div>
+                                                                            </a>
+                                                                        </div>
+                                                                    @empty
+                                                                        <p class="articles-empty">Материалов пока нет.</p>
+                                                                    @endforelse
+                                                                </div>
                                                             </div>
-
-                                                            <div class="post-item">
-                                                                <a href="https://pultop.uz/?p=36327">
-                                                                    <div class="post-img">
-                                                                        <img src="https://pultop.uz/wp-content/uploads/2026/06/kartinka-4-300x169.png"
-                                                                            alt="Сум попал под внешнее влияние: почему падает курс">
-                                                                    </div>
-                                                                    <div class="post-item-details">
-                                                                        <span class="post-date">
-                                                                            <span></span>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="post-title">Сум попал под внешнее влияние:
-                                                                        почему падает курс</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div class="post-item">
-                                                                <a href="https://pultop.uz/?p=36319">
-                                                                    <div class="post-img">
-                                                                        <img src="https://pultop.uz/wp-content/uploads/2026/06/alpari-300x169.jpg"
-                                                                            alt="Курс сума остается крепким: что произошло за последние две недели">
-                                                                    </div>
-                                                                    <div class="post-item-details">
-                                                                        <span class="post-date">
-                                                                            <span></span>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="post-title">Курс сума остается крепким: что
-                                                                        произошло за последние две недели</div>
-                                                                </a>
-                                                            </div>
-
-
-                                                        </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,4 +1,4 @@
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -10,15 +10,13 @@ import {
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { create, destroy, edit } from '@/routes/admin/banks';
-import type { Bank, SharedData } from '@/types';
+import type { Bank } from '@/types';
 
 type Props = {
     banks: Bank[];
 };
 
 export default function BanksIndex({ banks }: Props) {
-    const { flash } = usePage<SharedData>().props;
-
     return (
         <>
             <Head title="Банки" />
@@ -41,13 +39,6 @@ export default function BanksIndex({ banks }: Props) {
                         Добавить банк
                     </Link>
                 </div>
-
-                {flash?.success && (
-                    <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm">
-                        {flash.success}
-                    </div>
-                )}
-
                 <Card>
                     <CardHeader>
                         <CardTitle>Список банков</CardTitle>

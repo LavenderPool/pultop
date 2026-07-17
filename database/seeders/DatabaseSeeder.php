@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             SettingSeeder::class,
             BankSeeder::class,
+            CreditTypeSeeder::class,
         ]);
     }
 }

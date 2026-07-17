@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
+use App\Services\BankService;
 use Illuminate\View\View;
 
 class BankController extends Controller
 {
+    public function __construct(
+        private readonly BankService $banks,
+    ) {}
+
     public function index(): View
     {
-        $banks = Bank::query()
-            ->active()
-            ->ordered()
-            ->get();
-
         return view('public.banks.index', [
-            'banks' => $banks,
+            'banks' => $this->banks->listActive(),
             'title' => 'Банки Узбекистана',
         ]);
     }
@@ -27,9 +27,14 @@ class BankController extends Controller
             abort(404);
         }
 
+        $products = $this->banks->productsForBank($bank);
+
         return view('public.banks.show', [
             'bank' => $bank,
             'title' => $bank->name,
+            'credits' => $products['credits'],
+            'cards' => $products['cards'],
+            'deposits' => $products['deposits'],
         ]);
     }
 }

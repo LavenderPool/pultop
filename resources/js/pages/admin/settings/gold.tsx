@@ -1,4 +1,4 @@
-import { Form, Head, router, usePage } from '@inertiajs/react';
+import { Form, Head, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -10,7 +10,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { run, update } from '@/routes/admin/settings/gold';
-import type { SharedData } from '@/types';
 
 type CronPreset = {
     value: string;
@@ -39,8 +38,6 @@ type Props = {
 };
 
 export default function GoldSettings({ settings, cronPresets, runs }: Props) {
-    const { flash } = usePage<SharedData>().props;
-
     return (
         <>
             <Head title="Золото / парсер" />
@@ -68,13 +65,6 @@ export default function GoldSettings({ settings, cronPresets, runs }: Props) {
                         Запустить сейчас
                     </Button>
                 </div>
-
-                {flash?.success && (
-                    <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm">
-                        {flash.success}
-                    </div>
-                )}
-
                 <Card>
                     <CardHeader>
                         <CardTitle>Настройки</CardTitle>

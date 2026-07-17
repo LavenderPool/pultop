@@ -55,7 +55,7 @@ export default function RateSettings({
     proxiesCount,
     runs,
 }: Props) {
-    const { flash, errors } = usePage<SharedData & { errors?: Record<string, string> }>().props;
+    const { errors } = usePage<SharedData & { errors?: Record<string, string> }>().props;
 
     return (
         <>
@@ -83,13 +83,6 @@ export default function RateSettings({
                         Запустить сейчас
                     </Button>
                 </div>
-
-                {flash?.success && (
-                    <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm">
-                        {flash.success}
-                    </div>
-                )}
-
                 <Card>
                     <CardHeader>
                         <CardTitle>Настройки</CardTitle>

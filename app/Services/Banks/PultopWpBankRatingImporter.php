@@ -4,6 +4,7 @@ namespace App\Services\Banks;
 
 use App\Models\BankRatingRow;
 use App\Models\BankRatingSnapshot;
+use App\Services\PublicCacheService;
 use Carbon\Carbon;
 use DOMDocument;
 use DOMElement;
@@ -17,6 +18,10 @@ use Throwable;
 class PultopWpBankRatingImporter
 {
     private const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+    public function __construct(
+        private readonly PublicCacheService $cache,
+    ) {}
 
     /**
      * @return array{
@@ -70,6 +75,8 @@ class PultopWpBankRatingImporter
                 $snapshot->rows()->create($row);
             }
         });
+
+        $this->cache->forgetGroup(PublicCacheService::GROUP_BANKS);
 
         return [
             'ok' => true,

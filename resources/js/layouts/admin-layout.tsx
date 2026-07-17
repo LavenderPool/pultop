@@ -1,7 +1,7 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { ChevronDown, ExternalLink, LogOut } from 'lucide-react';
+import { ChevronDown, ExternalLink, LogOut, Trash2 } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,6 +15,7 @@ import { adminNav } from '@/config/admin-nav';
 import { cn } from '@/lib/utils';
 import { home } from '@/routes';
 import { logout } from '@/routes/admin';
+import { clear } from '@/routes/admin/cache';
 import type { SharedData } from '@/types';
 
 function isNavActive(currentUrl: string, href: string): boolean {
@@ -29,7 +30,7 @@ function isNavActive(currentUrl: string, href: string): boolean {
 
 export default function AdminLayout({ children }: PropsWithChildren) {
     const page = usePage<SharedData>();
-    const { auth, name } = page.props;
+    const { auth, name, flash } = page.props;
     const currentUrl = page.url;
 
     return (
@@ -78,6 +79,27 @@ export default function AdminLayout({ children }: PropsWithChildren) {
                         );
                     })}
                 </nav>
+
+                <div className="mt-auto shrink-0 border-t border-sidebar-border p-3">
+                    <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="w-full gap-1.5"
+                        onClick={() => {
+                            if (
+                                confirm(
+                                    'Очистить весь кеш? Это может временно замедлить сайт.',
+                                )
+                            ) {
+                                router.post(clear.url());
+                            }
+                        }}
+                    >
+                        <Trash2 className="size-3.5" />
+                        Очистить кеш
+                    </Button>
+                </div>
             </aside>
 
             <div className="flex min-w-0 flex-1 flex-col">
@@ -128,7 +150,14 @@ export default function AdminLayout({ children }: PropsWithChildren) {
                     )}
                 </header>
 
-                <main className="flex-1 px-6 py-8">{children}</main>
+                <main className="flex-1 px-6 py-8">
+                    {flash?.success && (
+                        <div className="mb-6 rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm">
+                            {flash.success}
+                        </div>
+                    )}
+                    {children}
+                </main>
             </div>
         </div>
     );

@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\CacheController;
+use App\Http\Controllers\Admin\CardController;
+use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DepositController;
 use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\GoldSettingsController;
 use App\Http\Controllers\Admin\RateSettingsController;
@@ -16,8 +21,13 @@ Route::middleware('guest:admin')->group(function () {
 Route::middleware('auth:admin')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::post('cache/clear', [CacheController::class, 'clear'])->name('cache.clear');
 
     Route::resource('banks', BankController::class)->except(['show']);
+    Route::resource('articles', ArticleController::class)->except(['show']);
+    Route::resource('credits', CreditController::class)->except(['show']);
+    Route::resource('deposits', DepositController::class)->except(['show']);
+    Route::resource('cards', CardController::class)->except(['show']);
 
     Route::get('settings/general', [GeneralSettingsController::class, 'edit'])->name('settings.general.edit');
     Route::put('settings/general', [GeneralSettingsController::class, 'update'])->name('settings.general.update');

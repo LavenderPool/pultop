@@ -104,6 +104,84 @@
                         </div>
                     </div>
                 </div>
+
+                @if ($credits->isNotEmpty())
+                    <div class="info-more">
+                        <h3>Кредиты банка</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Срок</th>
+                                    <th>Ставка</th>
+                                    <th>Сумма</th>
+                                </tr>
+                                @foreach ($credits as $credit)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('credits.show', $credit) }}">{{ $credit->title }}</a>
+                                        </td>
+                                        <td>{{ $credit->term_display }}</td>
+                                        <td>{{ $credit->rate_display }}</td>
+                                        <td>{{ $credit->amount_display }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+
+                @if ($cards->isNotEmpty())
+                    <div class="info-more">
+                        <h3>Карты банка</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Валюта</th>
+                                    <th>Система</th>
+                                    <th>Тип</th>
+                                </tr>
+                                @foreach ($cards as $card)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('cards.show', $card) }}">{{ $card->title }}</a>
+                                        </td>
+                                        <td>{{ strtoupper((string) $card->currency) === 'SUM' ? 'UZS' : strtoupper((string) $card->currency) }}</td>
+                                        <td>{{ $card->payment_system }}</td>
+                                        <td>{{ $card->card_type?->label() }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+
+                @if ($deposits->isNotEmpty())
+                    <div class="info-more">
+                        <h3>Вклады банка</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Срок</th>
+                                    <th>Ставка</th>
+                                    <th>Сумма</th>
+                                </tr>
+                                @foreach ($deposits as $deposit)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('deposits.show', $deposit) }}">{{ $deposit->title }}</a>
+                                        </td>
+                                        <td>{{ $deposit->term_display }}</td>
+                                        <td>{{ $deposit->rate_display }}</td>
+                                        <td>{{ $deposit->amount_display }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
 
             <x-public.sidebar />

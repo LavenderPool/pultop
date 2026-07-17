@@ -3,6 +3,7 @@
 namespace App\Services\Banks;
 
 use App\Models\Bank;
+use App\Services\PublicCacheService;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
@@ -16,6 +17,10 @@ use Throwable;
 class PultopWpBanksImporter
 {
     private const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+    public function __construct(
+        private readonly PublicCacheService $cache,
+    ) {}
 
     /**
      * @return array{
@@ -75,6 +80,10 @@ class PultopWpBanksImporter
                     'error' => $message,
                 ]);
             }
+        }
+
+        if (! $dryRun && $ok > 0) {
+            $this->cache->forgetGroup(PublicCacheService::GROUP_BANKS);
         }
 
         return [

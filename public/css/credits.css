@@ -1,0 +1,27 @@
+.credits-intro {
+  margin-bottom: 0.5rem;
+}
+
+.credits-intro h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: #1f365c;
+}
+
+.credits-top-title {
+  margin: 2rem 0 1rem;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  color: #1f365c;
+}
+
+.credits-disclaimer {
+  margin-top: 1.5rem;
+  color: #797979;
+  font-size: 0.95rem;
+}
+
+/* capability blocks on credits hub use styles from css/inline/wp-custom-css.css */
+#content .capability {
+  padding: 20px 0 10px;
+}

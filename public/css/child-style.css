@@ -20,6 +20,19 @@ Template: dt-the7
   visibility: visible;
 }
 
+/* Footer bottom-bar dropdowns (same behaviour as header) */
+#bottom-menu > li.has-children > .footer-sub-nav,
+#bottom-menu .footer-sub-nav .has-children > .footer-sub-nav {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#bottom-menu li.dt-hovered > .footer-sub-nav,
+#bottom-menu li:hover > .footer-sub-nav {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Fixed masthead clearance: header 60px; + top-bar 36px when present */
 .page-title {
   padding-top: 60px;

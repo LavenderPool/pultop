@@ -5,6 +5,7 @@ namespace App\Services\Rates;
 use App\Enums\ParseRunStatus;
 use App\Models\Bank;
 use App\Models\RateParseRun;
+use App\Services\PublicCacheService;
 use App\Services\SettingService;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -15,6 +16,7 @@ class RateParseOrchestrator
         private readonly PultopWpRatesImporter $importer,
         private readonly BankRateWriter $writer,
         private readonly SettingService $settings,
+        private readonly PublicCacheService $cache,
     ) {}
 
     public function run(): RateParseRun
@@ -91,6 +93,11 @@ class RateParseOrchestrator
             'details' => $details,
             'finished_at' => now(),
         ]);
+
+        if ($ok > 0) {
+            $this->cache->forgetGroup(PublicCacheService::GROUP_RATES);
+            $this->cache->forgetGroup(PublicCacheService::GROUP_BANKS);
+        }
 
         return $run->fresh();
     }
