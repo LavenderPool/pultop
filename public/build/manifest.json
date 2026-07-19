@@ -146,6 +146,13 @@
       "_wayfinder-BAu8Uj3f.js"
     ]
   },
+  "_seo-Dy086xyD.js": {
+    "file": "assets/seo-Dy086xyD.js",
+    "name": "seo",
+    "imports": [
+      "_wayfinder-BAu8Uj3f.js"
+    ]
+  },
   "_wayfinder-BAu8Uj3f.js": {
     "file": "assets/wayfinder-BAu8Uj3f.js",
     "name": "wayfinder",
@@ -174,7 +181,7 @@
     "src": "node_modules/@fontsource-variable/geist/files/geist-vietnamese-wght-normal.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CcFItmHy.css",
+    "file": "assets/app-DKnwMmOH.css",
     "name": "app",
     "names": [
       "app.css"
@@ -190,7 +197,7 @@
     ]
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-kJEVk4Mb.js",
+    "file": "assets/app-CS-Q2sFj.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -208,6 +215,7 @@
       "_deposits-CfG_KMGC.js",
       "_cards-jfb-uC6D.js",
       "_general-zAr5mRij.js",
+      "_seo-Dy086xyD.js",
       "_rates-s4m_ctgu.js",
       "_gold-Pzh8GmFd.js"
     ],
@@ -234,7 +242,8 @@
       "resources/js/pages/admin/deposits/index.tsx",
       "resources/js/pages/admin/settings/general.tsx",
       "resources/js/pages/admin/settings/gold.tsx",
-      "resources/js/pages/admin/settings/rates.tsx"
+      "resources/js/pages/admin/settings/rates.tsx",
+      "resources/js/pages/admin/settings/seo.tsx"
     ]
   },
   "resources/js/pages/admin/articles/create.tsx": {
@@ -501,7 +510,7 @@
     ]
   },
   "resources/js/pages/admin/deposits/index.tsx": {
-    "file": "assets/deposits-BBi2-twk.js",
+    "file": "assets/deposits-BBi2-twk2.js",
     "name": "deposits",
     "src": "resources/js/pages/admin/deposits/index.tsx",
     "isDynamicEntry": true,
@@ -553,6 +562,20 @@
       "_button-nWeUCTOM.js",
       "_label-aJTi_5rC.js",
       "_rates-s4m_ctgu.js",
+      "_card-DComKLvd.js"
+    ]
+  },
+  "resources/js/pages/admin/settings/seo.tsx": {
+    "file": "assets/seo-CqNKo5jm.js",
+    "name": "seo",
+    "src": "resources/js/pages/admin/settings/seo.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_jsx-runtime-CC5q8uEH.js",
+      "_wayfinder-BAu8Uj3f.js",
+      "_button-nWeUCTOM.js",
+      "_label-aJTi_5rC.js",
+      "_seo-Dy086xyD.js",
       "_card-DComKLvd.js"
     ]
   }
