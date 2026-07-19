@@ -1,9 +1,9 @@
 @extends('layouts.public')
 
-@section('title', $title.' - '.config('app.name', 'Pultop'))
+@section('title', $title)
 
 @section('content')
-    <x-public.calculators.page-shell :title="$title">
+    <x-public.calculators.page-shell :title="$h1">
         <x-public.calculators.monthly-payment />
     </x-public.calculators.page-shell>
 @endsection

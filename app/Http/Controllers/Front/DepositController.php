@@ -7,6 +7,7 @@ use App\Models\Deposit;
 use App\Services\BankService;
 use App\Services\Deposits\DepositQueryService;
 use App\Services\DepositService;
+use App\Services\SeoService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -16,16 +17,21 @@ class DepositController extends Controller
         private readonly DepositQueryService $query,
         private readonly DepositService $deposits,
         private readonly BankService $banks,
+        private readonly SeoService $seo,
     ) {}
 
     public function index(Request $request): View
     {
         $filters = $this->filtersFromRequest($request);
         $paginator = $this->query->paginate($filters);
+        $seo = $this->seo->resolve('deposits.index', 'Сравнение вкладов в банках Узбекистана');
 
         return view('public.deposits.index', [
             'deposits' => $paginator,
-            'title' => 'Сравнение вкладов в банках Узбекистана',
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
             'banks' => $this->banks->listActiveOptions(),
             'currencies' => ['UZS', 'USD', 'EUR', 'RUB', 'KZT', 'GBP', 'CHF', 'JPY'],
             'termOptions' => $this->termOptions(),

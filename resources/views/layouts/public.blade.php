@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1ebbf0">
     <title>@yield('title', config('app.name', 'Pultop'))</title>
+    @if (!empty($metaDescription))
+        <meta name="description" content="{{ $metaDescription }}">
+    @endif
+    @if (!empty($metaKeywords))
+        <meta name="keywords" content="{{ $metaKeywords }}">
+    @endif
     @stack('head')
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">

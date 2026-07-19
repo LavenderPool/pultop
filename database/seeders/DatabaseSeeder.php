@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CurrencySeeder::class,
             SettingSeeder::class,
+            SeoPageSeeder::class,
             BankSeeder::class,
             CreditTypeSeeder::class,
         ]);
+
     }
 }

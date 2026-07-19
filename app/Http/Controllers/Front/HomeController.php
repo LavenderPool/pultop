@@ -11,6 +11,7 @@ use App\Services\CreditService;
 use App\Services\DepositService;
 use App\Services\Gold\GoldQueryService;
 use App\Services\Rates\ExchangeRateQueryService;
+use App\Services\SeoService;
 use App\Services\SettingService;
 use Illuminate\View\View;
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
         private readonly DepositService $deposits,
         private readonly BankService $banks,
         private readonly SettingService $settings,
+        private readonly SeoService $seo,
     ) {}
 
     public function __invoke(): View
@@ -52,6 +54,13 @@ class HomeController extends Controller
             $telegramUrl = self::DEFAULT_TELEGRAM_URL;
         }
 
+        $seo = $this->seo->resolve(
+            'home',
+            'Кредиты, вклады, курсы валют в Узбекистане | PulTop.Uz',
+            appendAppName: false,
+            fallbackH1: '',
+        );
+
         return view('index', [
             'homepageRates' => $byPlace[RatePlace::Cash->value],
             'homepageRatesByPlace' => $byPlace,
@@ -62,6 +71,10 @@ class HomeController extends Controller
             'depositsCount' => $this->deposits->activeCount(),
             'organizationsCount' => $this->banks->activeCount(),
             'telegramUrl' => $telegramUrl,
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
         ]);
     }
 }

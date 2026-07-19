@@ -1,9 +1,9 @@
 @extends('layouts.public')
 
-@section('title', $title.' - '.config('app.name', 'Pultop'))
+@section('title', $title)
 
 @section('content')
-    <x-public.calculators.page-shell :title="$title" :intro="$intro">
+    <x-public.calculators.page-shell :title="$h1" :intro="$intro">
         <x-public.calculators.loan
             heading="Расчет кредита на приобретение автомобиля"
             amount-label="Цена автомобиля:"

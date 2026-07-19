@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', $title.' - '.config('app.name', 'Pultop'))
+@section('title', $title)
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/articles.css') }}">
@@ -9,7 +9,7 @@
 @section('content')
 <div class="page-title content-left solid-bg page-title-responsive-enabled">
     <div class="wf-wrap">
-        <div class="page-title-head hgroup"><h1 class="entry-title">{{ $title }}</h1></div>
+        <div class="page-title-head hgroup"><h1 class="entry-title">{{ $h1 }}</h1></div>
         <div class="page-title-breadcrumbs">
             <div class="assistive-text">You are here:</div>
             <ol class="breadcrumbs text-small" itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -18,7 +18,7 @@
                     <meta itemprop="position" content="1" />
                 </li>
                 <li class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <span itemprop="name">{{ $title }}</span>
+                    <span itemprop="name">{{ $h1 }}</span>
                     <meta itemprop="position" content="2" />
                 </li>
             </ol>

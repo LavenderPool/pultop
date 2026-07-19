@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DepositController;
 use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\GoldSettingsController;
 use App\Http\Controllers\Admin\RateSettingsController;
+use App\Http\Controllers\Admin\SeoSettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:admin')->group(function () {
@@ -31,6 +32,9 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('settings/general', [GeneralSettingsController::class, 'edit'])->name('settings.general.edit');
     Route::put('settings/general', [GeneralSettingsController::class, 'update'])->name('settings.general.update');
+
+    Route::get('settings/seo', [SeoSettingsController::class, 'edit'])->name('settings.seo.edit');
+    Route::put('settings/seo', [SeoSettingsController::class, 'update'])->name('settings.seo.update');
 
     Route::get('settings/rates', [RateSettingsController::class, 'edit'])->name('settings.rates.edit');
     Route::put('settings/rates', [RateSettingsController::class, 'update'])->name('settings.rates.update');

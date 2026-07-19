@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/articles.css') }}">
 @endpush
 
-@section('title', 'Кредиты, вклады, курсы валют в Узбекистане | PulTop.Uz')
+@section('title', $title)
 
 @section('body_class', 'home')
 
@@ -14,6 +14,9 @@
             <div id="content" class="content" role="main">
 
                 <div class="wpb-content-wrapper">
+                    @if (!empty($h1))
+                        <h1 class="assistive-text">{{ $h1 }}</h1>
+                    @endif
                     <div
                         class="vc_row wpb_row vc_row-fluid wpb_animate_when_almost_visible wpb_bottom-to-top bottom-to-top wpb_start_animation animated">
                         <div class="wpb_column vc_column_container vc_col-sm-12">
@@ -328,7 +331,6 @@
                                                                             </div>
                                                                         </div>
 
-
                                                                         <div data-homepage-rates-list>
                                                                             @include('components.public.homepage-rate-rows', ['rates' => $homepageRates ?? []])
                                                                         </div>
@@ -354,10 +356,6 @@
 
                                                                 </div>
                                                             </div>
-
-
-
-
 
                                                         </div>
                                                     </div>
@@ -968,8 +966,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
 
                                         </div>
                                     </div>

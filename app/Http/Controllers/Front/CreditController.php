@@ -9,6 +9,7 @@ use App\Models\CreditType;
 use App\Services\BankService;
 use App\Services\Credits\CreditQueryService;
 use App\Services\CreditService;
+use App\Services\SeoService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -18,12 +19,18 @@ class CreditController extends Controller
         private readonly CreditService $credits,
         private readonly CreditQueryService $query,
         private readonly BankService $banks,
+        private readonly SeoService $seo,
     ) {}
 
     public function index(): View
     {
+        $seo = $this->seo->resolve('credits.index', 'Кредиты');
+
         return view('public.credits.hub', [
-            'title' => 'Кредиты',
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
             'types' => $this->credits->typesWithActiveCounts(),
             'topCredits' => $this->credits->topAutoloans(10),
         ]);
@@ -42,10 +49,14 @@ class CreditController extends Controller
             ->firstOrFail();
 
         $filters = $this->filtersFromRequest($request);
+        $seo = $this->seo->resolve('credits.type.'.$enum->value, $creditType->name);
 
         return view('public.credits.index', [
             'credits' => $this->query->list($creditType, $filters),
-            'title' => $creditType->name,
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
             'type' => $creditType,
             'banks' => $this->banks->listActiveOptions(),
             'currencies' => ['UZS', 'USD', 'EUR', 'RUB', 'KZT', 'GBP', 'CHF', 'JPY'],

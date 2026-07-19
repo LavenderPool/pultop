@@ -8,6 +8,7 @@ import {
     Newspaper,
     PiggyBank,
     RefreshCw,
+    Search,
     Settings,
 } from 'lucide-react';
 import { dashboard } from '@/routes/admin';
@@ -19,6 +20,7 @@ import { index as depositsIndex } from '@/routes/admin/deposits';
 import { edit as generalSettingsEdit } from '@/routes/admin/settings/general';
 import { edit as goldSettingsEdit } from '@/routes/admin/settings/gold';
 import { edit as ratesSettingsEdit } from '@/routes/admin/settings/rates';
+import { edit as seoSettingsEdit } from '@/routes/admin/settings/seo';
 
 export type AdminNavItem = {
     title: string;
@@ -61,6 +63,11 @@ export const adminNav: AdminNavItem[] = [
         title: 'Общие настройки',
         href: generalSettingsEdit.url(),
         icon: Settings,
+    },
+    {
+        title: 'SEO',
+        href: seoSettingsEdit.url(),
+        icon: Search,
     },
     {
         title: 'Курсы / парсер',

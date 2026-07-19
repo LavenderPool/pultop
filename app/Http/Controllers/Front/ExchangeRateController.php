@@ -6,6 +6,7 @@ use App\Enums\RateOperation;
 use App\Enums\RatePlace;
 use App\Http\Controllers\Controller;
 use App\Services\Rates\ExchangeRateQueryService;
+use App\Services\SeoService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,6 +14,7 @@ class ExchangeRateController extends Controller
 {
     public function __construct(
         private readonly ExchangeRateQueryService $rates,
+        private readonly SeoService $seo,
     ) {}
 
     public function index(): View
@@ -27,9 +29,14 @@ class ExchangeRateController extends Controller
             'url' => route('exchange-rates.show', ['currency' => strtolower($currency->code)]),
         ]);
 
+        $seo = $this->seo->resolve('exchange-rates.index', 'Курс валют в банках Узбекистана');
+
         return view('public.exchange-rates.index', [
             'currencies' => $currencies,
-            'title' => 'Курс валют в банках Узбекистана',
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
         ]);
     }
 
@@ -54,6 +61,11 @@ class ExchangeRateController extends Controller
             'url' => route('exchange-rates.show', ['currency' => strtolower($item->code)]),
             'is_current' => strcasecmp($item->code, $model->code) === 0,
         ]);
+
+        $seo = $this->seo->resolve(
+            'exchange-rates.show.'.strtolower($model->code),
+            $model->name_ru,
+        );
 
         return view('public.exchange-rates.show', [
             'currency' => [
@@ -80,7 +92,10 @@ class ExchangeRateController extends Controller
                 'label' => $o->label(),
             ]),
             'apiUrl' => route('api.rates'),
-            'title' => $model->name_ru,
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
         ]);
     }
 }

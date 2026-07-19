@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Card;
 use App\Services\CardService;
+use App\Services\SeoService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,6 +13,7 @@ class CardController extends Controller
 {
     public function __construct(
         private readonly CardService $cards,
+        private readonly SeoService $seo,
     ) {}
 
     public function index(Request $request): View
@@ -34,10 +36,14 @@ class CardController extends Controller
         }
 
         $options = $this->cards->filterOptions();
+        $seo = $this->seo->resolve('cards.index', 'Карты');
 
         return view('public.cards.index', [
             'cards' => $this->cards->listActive($filters),
-            'title' => 'Карты',
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
             'banks' => $options['banks'],
             'cardTypes' => $options['card_types'],
             'paymentSystems' => $options['payment_systems'],

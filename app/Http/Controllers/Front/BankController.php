@@ -5,19 +5,26 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Services\BankService;
+use App\Services\SeoService;
 use Illuminate\View\View;
 
 class BankController extends Controller
 {
     public function __construct(
         private readonly BankService $banks,
+        private readonly SeoService $seo,
     ) {}
 
     public function index(): View
     {
+        $seo = $this->seo->resolve('banks.index', 'Банки Узбекистана');
+
         return view('public.banks.index', [
             'banks' => $this->banks->listActive(),
-            'title' => 'Банки Узбекистана',
+            'title' => $seo['title'],
+            'h1' => $seo['h1'],
+            'metaDescription' => $seo['metaDescription'],
+            'metaKeywords' => $seo['metaKeywords'],
         ]);
     }
 

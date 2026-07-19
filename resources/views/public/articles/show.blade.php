@@ -2,12 +2,6 @@
 
 @section('title', $title.' - '.config('app.name', 'Pultop'))
 
-@if (!empty($metaDescription))
-    @push('head')
-        <meta name="description" content="{{ $metaDescription }}">
-    @endpush
-@endif
-
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/articles.css') }}">
 @endpush

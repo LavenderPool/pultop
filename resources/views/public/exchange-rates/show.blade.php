@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', $title.' - '.config('app.name', 'Pultop'))
+@section('title', $title)
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/kurs/currency.css') }}">
@@ -12,7 +12,7 @@
 <div class="page-title content-left solid-bg page-title-responsive-enabled">
 			<div class="wf-wrap">
 
-				<div class="page-title-head hgroup"><h1>{{ $title }}</h1></div><div class="page-title-breadcrumbs"><div class="assistive-text">You are here:</div><ol class="breadcrumbs text-small" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/') }}" title="Home"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/kurs-obmena-valyut') }}/" title="Курс валют в банках Узбекистана"><span itemprop="name">Курс валют в банках Узбекистана</span></a><meta itemprop="position" content="2" /></li><li class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ $currency['name_ru'] }}</span><meta itemprop="position" content="3" /></li></ol></div>			</div>
+				<div class="page-title-head hgroup"><h1>{{ $h1 }}</h1></div><div class="page-title-breadcrumbs"><div class="assistive-text">You are here:</div><ol class="breadcrumbs text-small" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/') }}" title="Home"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{ url('/kurs-obmena-valyut') }}/" title="Курс валют в банках Узбекистана"><span itemprop="name">Курс валют в банках Узбекистана</span></a><meta itemprop="position" content="2" /></li><li class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ $currency['name_ru'] }}</span><meta itemprop="position" content="3" /></li></ol></div>			</div>
 		</div>
 <div id="main" class="sidebar-right sidebar-divider-vertical"
      data-exchange-rates
@@ -156,37 +156,41 @@
 </form>
 <section class="rates">
     <div class="rates-list" data-rates-list>
-        @forelse ($rates as $rate)
-            <div class="UniSearchList-Item">
-                <div class="FinanceItem FinanceItem_view_horizontal-button UniSearchDepositsItem">
-                    <div class="FinanceItem-Upper">
-                        <div class="FinanceItem-Header">
-                            <div class="FinanceItem-BankIcon">
-                                <div class="FinanceItem-BankIconImage" @if(!empty($rate['logo_url'])) style="background-image:url({{ $rate['logo_url'] }})" @endif></div>
-                            </div>
-                            <div class="FinanceItem-HeaderTitleContainer">
-                                <h3 class="FinanceItem-HeaderTitle">{{ $rate['bank_name'] }}</h3>
-                                <div class="FinanceItem-HeaderSubtitleContainer">
-                                    <div class="FinanceItem-HeaderSubtitle">
-                                        @if ($rate['fetched_at']){{ $rate['fetched_at'] }} 🕒 @endif
+        <div class="UniSearchLayout-Content">
+            <div class="UniSearchList UniSearchList_theme_clear">
+                @forelse ($rates as $rate)
+                <div class="UniSearchList-Item">
+                    <div class="FinanceItem FinanceItem_view_horizontal-button UniSearchDepositsItem">
+                        <div class="FinanceItem-Upper">
+                            <div class="FinanceItem-Header">
+                                <div class="FinanceItem-BankIcon">
+                                    <div class="FinanceItem-BankIconImage" @if(!empty($rate['logo_url'])) style="background-image:url({{ $rate['logo_url'] }})" @endif></div>
+                                </div>
+                                <div class="FinanceItem-HeaderTitleContainer">
+                                    <h3 class="FinanceItem-HeaderTitle">{{ $rate['bank_name'] }}</h3>
+                                    <div class="FinanceItem-HeaderSubtitleContainer">
+                                        <div class="FinanceItem-HeaderSubtitle">
+                                            @if ($rate['fetched_at']){{ $rate['fetched_at'] }} 🕒 @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="FinanceItem-Body">
-                            <div class="FinanceItem-ProductDetails_view_horizontal FinanceItem-ProductDetails" style="display: flex;">
-                                <div class="FinanceItem-ProductDetail">
-                                    <div class="FinanceItem-ProductDetailLabel">{{ $operation === 'buy' ? 'Курс продажи' : 'Курс покупки' }}</div>
-                                    <div class="FinanceItem-ProductDetailValue">{{ \App\Support\Money::formatRate($rate['rate'], 0) }}&nbsp;<span style="color: #888; font-weight: 100;">UZS</span></div>
+                            <div class="FinanceItem-Body">
+                                <div class="FinanceItem-ProductDetails_view_horizontal FinanceItem-ProductDetails" style="display: flex;">
+                                    <div class="FinanceItem-ProductDetail">
+                                        <div class="FinanceItem-ProductDetailLabel">{{ $operation === 'buy' ? 'Курс продажи' : 'Курс покупки' }}</div>
+                                        <div class="FinanceItem-ProductDetailValue">{{ \App\Support\Money::formatRate($rate['rate'], 0) }}&nbsp;<span style="color: #888; font-weight: 100;">UZS</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @empty
+                <p style="padding: 16px; margin-top: 32px; color: #888;">Курсы банков пока недоступны.</p>
+            @endforelse
             </div>
-        @empty
-            <p style="padding: 16px; margin-top: 32px; color: #888;">Курсы банков пока недоступны.</p>
-        @endforelse
+        </div>
     </div>
 </section>
 
